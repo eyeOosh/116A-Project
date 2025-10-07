@@ -30,9 +30,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.20000005, y: 1.375, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 2.5316}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4879263147361452299}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &9005220659476430821
@@ -51,9 +52,9 @@ Camera:
   m_FOVAxisMode: 0
   m_Iso: 200
   m_ShutterSpeed: 0.005
-  m_Aperture: 16
+  m_Aperture: 0.7
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 40.51132
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -68,7 +69,7 @@ Camera:
     height: 1
   near clip plane: 0.2
   far clip plane: 5000
-  field of view: 40
+  field of view: 33
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -106,9 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
+  m_ShowDebugText: 1
   m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
+  m_IgnoreTimeScale: 1
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
@@ -172,3 +173,100 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &6424324503664092419
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 9005220659476430818}
+    m_Modifications:
+    - target: {fileID: 1286488315418017458, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_Name
+      value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9801994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.39818442
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.4865741
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.185
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.34773135
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.1563975
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9876942
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -162.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1286488315418017458, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3471886111080552750}
+  m_SourcePrefab: {fileID: 100100000, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+--- !u!4 &4879263147361452299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1914406845584122888, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+  m_PrefabInstance: {fileID: 6424324503664092419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5259447177915276209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1286488315418017458, guid: 95cd12a73fb2a234a998f76d0f6d4ca1, type: 3}
+  m_PrefabInstance: {fileID: 6424324503664092419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3471886111080552750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5259447177915276209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3988d22f7194654429dae5204a6ebc91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunShoot
+  fpsCam: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  hitEffect: {fileID: 0}
+  range: 100
+  damage: 10
+  fireRate: 5
+  muzzleTip: {fileID: 4879263147361452299}

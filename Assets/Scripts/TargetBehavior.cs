@@ -15,10 +15,15 @@ public class TargetBehavior : MonoBehaviour
         col.isTrigger = true;
     }
 
-    void OnTriggerEnter(Collider other)
+    public void Hit()
     {
         col.isTrigger = false;
         rigidBody.isKinematic = false;
         rigidBody.useGravity = true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Hit();
     }
 }
