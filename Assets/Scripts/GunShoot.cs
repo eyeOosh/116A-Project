@@ -12,9 +12,13 @@ public class GunShoot : MonoBehaviour
     public LineRenderer laserLine;
 
     [Header("Settings")]
+    // range in units of the ray
     public float range = 100f;
+    // damage per hit
     public float damage = 2f;
-    public float fireRate = 5f; // shots per second
+    // fire rate in shots per second
+    public float fireRate = 50f; // shots per second
+    // public float nextTimeToFire = 0f; // time when player can fire next
     public float hitForce = 100f;                                        // Amount of force which will be added to objects with a rigidbody shot by the player
 
     private WaitForSeconds shotDuration = new WaitForSeconds(.07f);
