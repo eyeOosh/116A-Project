@@ -54,27 +54,37 @@ public class GunShoot : MonoBehaviour
 
             laserLine.SetPosition (0, gunEnd.position);
 
-            if (Physics.Raycast (rayOrigin, fpsCam.transform.forward, out hit, range))
-            {
-                laserLine.SetPosition (1, hit.point);
+            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, range))
+{
+    laserLine.SetPosition(1, hit.point);
 
-                ShootableBox health = hit.collider.GetComponent<ShootableBox>();
+    ShootableBox health = hit.collider.GetComponent<ShootableBox>();
 
-                if (health != null)
-                {
-                    health.Damage(damage); //convert to float
+    if (health != null)
+        {
+            health.Damage(damage); // Target hit → no deduction
+        }
+        else
+        {
+            // Hit something that is not a target → deduct points
+            if (ScoreManager.Instance != null)
+                ScoreManager.Instance.AddScore((float)-0.5);
+        }
 
-                }
+        if (hit.rigidbody != null)
+        {
+            hit.rigidbody.AddForce(-hit.normal * hitForce);
+        }
+    }
+    else
+    {
+        // Raycast hit nothing → deduct points
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.AddScore((float)-0.5);
 
-                if (hit.rigidbody != null);
-                {
-                    hit.rigidbody.AddForce(-hit.normal * hitForce);
-                }
-            }
-            else
-            {
-                laserLine.SetPosition (1, rayOrigin + (fpsCam.transform.forward * range));
-            }
+        laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * range));
+    }
+
         }
         // Semi-auto: fires once per click
         // if (Mouse.current.leftButton.wasPressedThisFrame && Time.time >= nextTimeToFire)

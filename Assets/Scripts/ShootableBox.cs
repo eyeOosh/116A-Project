@@ -27,8 +27,11 @@ public class ShootableBox : MonoBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
+            if (ScoreManager.Instance != null)
+            ScoreManager.Instance.AddScore((float)0.5);
             StartCoroutine(Respawn());
         }
+
     }
 
     private IEnumerator Respawn()
