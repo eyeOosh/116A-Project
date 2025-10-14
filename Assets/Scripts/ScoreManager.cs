@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class ScoreManager : MonoBehaviour
 
     public Text scoreText;  // assign in Inspector
     private float score = 0;
+    private float lastScore = 0;
 
     private void Awake()
     {
@@ -30,13 +32,30 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(float points)
     {
         score += points;
+        lastScore = points;
         UpdateScoreUI();
     }
 
     private void UpdateScoreUI()
     {
-        if (scoreText != null)
-            scoreText.text = "" + score;
+        if (scoreText is null)
+            return;
+
+        if(lastScore > 0)
+        {
+            scoreText.text = $"{score} / +{Math.Abs(lastScore)}";
+            scoreText.color = Color.green;
+        }
+        else if(lastScore < 0)
+        {
+            scoreText.text = $"{score} / -{Math.Abs(lastScore)}";
+            scoreText.color = Color.red;
+        }
+        else
+        {
+            scoreText.text = $"{score}";
+            scoreText.color = Color.white;
+        }
     }
 
     // Optional: Reset score
