@@ -6,34 +6,36 @@ using UnityEngine.AI;
 public class RobotTarget : MonoBehaviour, IShootable
 {
     [Header("Dead State")]
-    public Vector3 positionTransform = new Vector3(0, -0.3f, 1);
-    public Quaternion rotationTransform = Quaternion.Euler(90, 10, 0);
+    public Vector3 positionTransform = new Vector3(0, -0.3f, 0.35f);
+    public Quaternion rotationTransform = Quaternion.Euler(90, 0, 0);
 
     public float respawnTime = 2;
-    public float killDuration = 0.02f;
-    public float respawnDuration = 0.3f;
+    public float dieDuration = 0.15f;
+    public float respawnDuration = 0.5f;
 
-    [Header("Score")]
+    [Header("Scoring")]
     public float points = 1f;
-
 
     [Header("Movement")]
     public Transform waypointsParent;
-    public float waitTime = 0f;
 
+    // private state
     private Transform[] waypoints;
     private int currentIndex = 0;
 
     private NavMeshAgent agent;
-    private float waitTimer = 0f;
+    private Transform robot;
 
-
-    private bool unconcious = false;
+    private bool dead = false;
 
 
     void Start()
     {
+        // find referenced components
+        robot = transform.Find("Robot");
         agent = GetComponent<NavMeshAgent>();
+
+        // create waypoints
         waypoints = new Transform[waypointsParent.childCount];
         for (int i = 0; i < waypointsParent.childCount; i++)
         {
@@ -46,55 +48,44 @@ public class RobotTarget : MonoBehaviour, IShootable
 
     void Update()
     {
-        // Check if reached current waypoint
-        if (!agent.pathPending && agent.remainingDistance < 1f)
+        // update waypoint
+        if (!agent.pathPending && agent.remainingDistance < 0.1f)
         {
-            if (waitTimer <= 0f)
-            {
-                // Set next waypoint
-                currentIndex = (currentIndex + 1) % waypoints.Length;
-                agent.SetDestination(waypoints[currentIndex].position);
-                waitTimer = waitTime;
-            }
-            else
-            {
-                waitTimer -= Time.deltaTime;
-            }
+            currentIndex = (currentIndex + 1) % waypoints.Length;
+            agent.SetDestination(waypoints[currentIndex].position);
         }
     }
 
-
     public bool Hit(float damage)
     {
-        if (unconcious)
+        if (dead)
             return false;
 
-        unconcious = true;
+        dead = true;
+
         StartCoroutine(HitRoutine());
         return true;
     }
 
     private IEnumerator HitRoutine()
     {
-        // add score
         ScoreManager.Instance?.AddScore(points);
-
         agent.isStopped = true;
 
-
-        var startPos = transform.localPosition;
-        var startRot = transform.localRotation;
+        // move down
+        var startPos = robot.localPosition;
+        var startRot = robot.localRotation;
         var endPos = startPos + positionTransform;
         var endRot = startRot * rotationTransform;
 
         // kill animation
         float elapsed = 0f;
-        while (elapsed < killDuration)
+        while (elapsed < dieDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / killDuration;
-            transform.localPosition = Vector3.Lerp(startPos, endPos, t);
-            transform.localRotation = Quaternion.Slerp(startRot, endRot, t);
+            float t = elapsed / dieDuration;
+            robot.localPosition = Vector3.Lerp(startPos, endPos, t);
+            robot.localRotation = Quaternion.Slerp(startRot, endRot, t);
             yield return null;
         }
 
@@ -106,15 +97,12 @@ public class RobotTarget : MonoBehaviour, IShootable
         {
             elapsed += Time.deltaTime;
             float t = elapsed / respawnDuration;
-            transform.localPosition = Vector3.Lerp(endPos, startPos, t);
-            transform.localRotation = Quaternion.Slerp(endRot, startRot, t);
+            robot.localPosition = Vector3.Lerp(endPos, startPos, t);
+            robot.localRotation = Quaternion.Slerp(endRot, startRot, t);
             yield return null;
         }
 
-        //anim.enabled = true; // stops all animation
         agent.isStopped = false;
-
-        // update state
-        unconcious = false;
+        dead = false;
     }
 }
