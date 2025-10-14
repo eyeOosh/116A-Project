@@ -55,35 +55,35 @@ public class GunShoot : MonoBehaviour
             laserLine.SetPosition (0, gunEnd.position);
 
             if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, range))
-{
-    laserLine.SetPosition(1, hit.point);
+            {
+                laserLine.SetPosition(1, hit.point);
 
-    ShootableBox health = hit.collider.GetComponent<ShootableBox>();
+                ShootableBox health = hit.collider.GetComponentInParent<ShootableBox>();
 
-    if (health != null)
-        {
-            health.Damage(damage); // Target hit → no deduction
-        }
-        else
-        {
-            // Hit something that is not a target → deduct points
-            if (ScoreManager.Instance != null)
-                ScoreManager.Instance.AddScore((float)-0.5);
-        }
+                // Target hit → no deduction
+                if (health != null)
+                {
+                    health.Damage(damage); 
+                }
+                // Hit something that is not a target → deduct points
+                else if (ScoreManager.Instance != null)
+                {
+                    ScoreManager.Instance.AddScore((float)-0.5);
+                }
 
-        if (hit.rigidbody != null)
-        {
-            hit.rigidbody.AddForce(-hit.normal * hitForce);
-        }
-    }
-    else
-    {
-        // Raycast hit nothing → deduct points
-        if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddScore((float)-0.5);
+                if (hit.rigidbody != null)
+                {
+                    hit.rigidbody.AddForce(-hit.normal * hitForce);
+                }
+            }
+            else
+            {
+                // Raycast hit nothing → deduct points
+                if (ScoreManager.Instance != null)
+                    ScoreManager.Instance.AddScore((float)-0.5);
 
-        laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * range));
-    }
+                laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * range));
+            }
 
         }
         // Semi-auto: fires once per click
@@ -99,13 +99,13 @@ public class GunShoot : MonoBehaviour
 
     private IEnumerator ShotEffect()
     {
-    // gunAudio.Play ();
+        // gunAudio.Play ();
 
-    laserLine.enabled = true;
+        laserLine.enabled = true;
 
-    yield return shotDuration;
+        yield return shotDuration;
 
-    laserLine.enabled = false;
+        laserLine.enabled = false;
     }
 
     // void Shoot()
