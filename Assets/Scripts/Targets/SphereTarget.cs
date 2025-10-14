@@ -22,7 +22,7 @@ public class SphereTarget : MonoBehaviour, IShootable
         currentHealth = maxHealth;
     }
 
-    public void Hit(float damage)
+    public bool Hit(float damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -30,6 +30,8 @@ public class SphereTarget : MonoBehaviour, IShootable
             ScoreManager.Instance?.AddScore(1f); // TODO: make score dynamic
             StartCoroutine(Respawn());
         }
+
+        return true;
     }
 
     private IEnumerator Respawn()

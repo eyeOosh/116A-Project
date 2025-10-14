@@ -43,7 +43,7 @@ public class GunShoot : MonoBehaviour
 
     void Update()
     {
-        // TODO: add correct debouncing so that this function does not get called twice
+        // TODO: clean up this function
         if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > nextFire) 
         {
             nextFire = Time.time + 1f / fireRate;
@@ -62,11 +62,16 @@ public class GunShoot : MonoBehaviour
                 IShootable shootable = hit.collider.GetComponentInParent<IShootable>();
                 if(shootable is not null)
                 {
-                    shootable.Hit(damage);
+                    var isHit = shootable.Hit(damage);
+
+                    if (!isHit)
+                    {
+                        ScoreManager.Instance?.AddScore(-1f);
+                    }
                 }
                 else
                 {
-                    ScoreManager.Instance?.AddScore(-1f); // TODO: fix double counting
+                    ScoreManager.Instance?.AddScore(-1f);
                 }
 
                 // add force
