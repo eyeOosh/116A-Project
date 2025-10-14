@@ -1,10 +1,11 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RobotTarget : MonoBehaviour, IShootable
 {
-    [Header("Unconciousnes")]
+    [Header("Dead State")]
     public Vector3 positionTransform = new Vector3(0, -0.3f, 1);
     public Quaternion rotationTransform = Quaternion.Euler(90, 10, 0);
 
@@ -16,7 +17,52 @@ public class RobotTarget : MonoBehaviour, IShootable
     public float points = 1f;
 
 
+    [Header("Movement")]
+    public Transform waypointsParent;
+    public float waitTime = 0f;
+
+    private Transform[] waypoints;
+    private int currentIndex = 0;
+
+    private NavMeshAgent agent;
+    private float waitTimer = 0f;
+
+
     private bool unconcious = false;
+
+
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        waypoints = new Transform[waypointsParent.childCount];
+        for (int i = 0; i < waypointsParent.childCount; i++)
+        {
+            waypoints[i] = waypointsParent.GetChild(i);
+        }
+
+        if (waypoints.Length > 0)
+            agent.SetDestination(waypoints[0].position);
+    }
+
+    void Update()
+    {
+        // Check if reached current waypoint
+        if (!agent.pathPending && agent.remainingDistance < 1f)
+        {
+            if (waitTimer <= 0f)
+            {
+                // Set next waypoint
+                currentIndex = (currentIndex + 1) % waypoints.Length;
+                agent.SetDestination(waypoints[currentIndex].position);
+                waitTimer = waitTime;
+            }
+            else
+            {
+                waitTimer -= Time.deltaTime;
+            }
+        }
+    }
+
 
     public bool Hit(float damage)
     {
@@ -33,12 +79,13 @@ public class RobotTarget : MonoBehaviour, IShootable
         // add score
         ScoreManager.Instance?.AddScore(points);
 
+        agent.isStopped = true;
+
+
         var startPos = transform.localPosition;
         var startRot = transform.localRotation;
         var endPos = startPos + positionTransform;
         var endRot = startRot * rotationTransform;
-
-        // TODO: trigger hit animation as well
 
         // kill animation
         float elapsed = 0f;
@@ -63,6 +110,9 @@ public class RobotTarget : MonoBehaviour, IShootable
             transform.localRotation = Quaternion.Slerp(endRot, startRot, t);
             yield return null;
         }
+
+        //anim.enabled = true; // stops all animation
+        agent.isStopped = false;
 
         // update state
         unconcious = false;
