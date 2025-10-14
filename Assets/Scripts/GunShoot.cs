@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem; // new Input System
 using System.Collections;
+using System;
 
 public class GunShoot : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class GunShoot : MonoBehaviour
 
     void Update()
     {
+        // TODO: add correct debouncing so that this function does not get called twice
         if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > nextFire) 
         {
             nextFire = Time.time + 1f / fireRate;

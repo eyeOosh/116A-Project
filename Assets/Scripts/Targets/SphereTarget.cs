@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ShootableBox : MonoBehaviour, IShootable
+public class SphereTarget : MonoBehaviour, IShootable
 {
     [Header("Box Health")]
     public float maxHealth = 3f;

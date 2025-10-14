@@ -374,9 +374,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5259447177915276209, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 554976225}
-    - targetCorrespondingSourceObject: {fileID: 5259447177915276209, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 554976229}
     - targetCorrespondingSourceObject: {fileID: 5259447177915276209, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       insertIndex: -1
@@ -997,7 +994,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 508023436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2489c2d9954d57bec48f10b04244a, type: 3}
+  m_Script: {fileID: 11500000, guid: e29ff0719f221a54497870d25378048a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootableBox
   maxHealth: 3
@@ -1020,27 +1017,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4879263147361452299, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
   m_PrefabInstance: {fileID: 303904012}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &554976225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554976223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3988d22f7194654429dae5204a6ebc91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GunShoot
-  fpsCam: {fileID: 937369144}
-  muzzleFlash: {fileID: 0}
-  hitEffect: {fileID: 0}
-  laserLine: {fileID: 0}
-  range: 100
-  damage: 10
-  fireRate: 5
-  hitForce: 100
-  gunEnd: {fileID: 415388808}
 --- !u!114 &554976229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1223,7 +1199,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 633838352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2489c2d9954d57bec48f10b04244a, type: 3}
+  m_Script: {fileID: 11500000, guid: e29ff0719f221a54497870d25378048a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootableBox
   maxHealth: 3
@@ -1481,11 +1457,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
   m_PrefabInstance: {fileID: 303904012}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &937369144 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 9005220659476430821, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
-  m_PrefabInstance: {fileID: 303904012}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &960966246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,7 +1668,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1345122220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2489c2d9954d57bec48f10b04244a, type: 3}
+  m_Script: {fileID: 11500000, guid: e29ff0719f221a54497870d25378048a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootableBox
   maxHealth: 3
@@ -2439,7 +2410,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1781781605}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f2489c2d9954d57bec48f10b04244a, type: 3}
+  m_Script: {fileID: 11500000, guid: e29ff0719f221a54497870d25378048a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootableBox
   maxHealth: 3
