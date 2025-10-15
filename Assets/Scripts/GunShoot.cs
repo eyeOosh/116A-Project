@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem; // new Input System
 using System.Collections;
+using System;
 
 public class GunShoot : MonoBehaviour
 {
@@ -42,48 +43,50 @@ public class GunShoot : MonoBehaviour
 
     void Update()
     {
+        // TODO: clean up this function
         if (Mouse.current.leftButton.wasPressedThisFrame && Time.time > nextFire) 
         {
             nextFire = Time.time + 1f / fireRate;
 
-            StartCoroutine (ShotEffect());
+            StartCoroutine(ShotEffect());
 
-            Vector3 rayOrigin = fpsCam.ViewportToWorldPoint (new Vector3(0.5f, 0.5f, 0.0f));
+            Vector3 rayOrigin = fpsCam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
 
-            RaycastHit hit;
+            laserLine.SetPosition(0, gunEnd.position);
 
-            laserLine.SetPosition (0, gunEnd.position);
+            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out RaycastHit hit, range))
+            {
+                laserLine.SetPosition(1, hit.point);
 
-            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out hit, range))
-{
-    laserLine.SetPosition(1, hit.point);
+                // invoke shootable interface
+                IShootable shootable = hit.collider.GetComponentInParent<IShootable>();
+                if(shootable is not null)
+                {
+                    var isHit = shootable.Hit(damage);
 
-    ShootableBox health = hit.collider.GetComponent<ShootableBox>();
+                    if (!isHit)
+                    {
+                        ScoreManager.Instance?.AddScore(-1f);
+                    }
+                }
+                else
+                {
+                    ScoreManager.Instance?.AddScore(-1f);
+                }
 
-    if (health != null)
-        {
-            health.Damage(damage); // Target hit → no deduction
-        }
-        else
-        {
-            // Hit something that is not a target → deduct points
-            if (ScoreManager.Instance != null)
-                ScoreManager.Instance.AddScore((float)-0.5);
-        }
+                // add force
+                if (hit.rigidbody != null)
+                {
+                    hit.rigidbody.AddForce(-hit.normal * hitForce);
+                }
+            }
+            else
+            {
+                // Raycast hit nothing → deduct points
+                ScoreManager.Instance?.AddScore(-1f);
 
-        if (hit.rigidbody != null)
-        {
-            hit.rigidbody.AddForce(-hit.normal * hitForce);
-        }
-    }
-    else
-    {
-        // Raycast hit nothing → deduct points
-        if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddScore((float)-0.5);
-
-        laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * range));
-    }
+                laserLine.SetPosition(1, rayOrigin + (fpsCam.transform.forward * range));
+            }
 
         }
         // Semi-auto: fires once per click
@@ -99,13 +102,13 @@ public class GunShoot : MonoBehaviour
 
     private IEnumerator ShotEffect()
     {
-    // gunAudio.Play ();
+        // gunAudio.Play ();
 
-    laserLine.enabled = true;
+        laserLine.enabled = true;
 
-    yield return shotDuration;
+        yield return shotDuration;
 
-    laserLine.enabled = false;
+        laserLine.enabled = false;
     }
 
     // void Shoot()

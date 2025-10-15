@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ShootableBox : MonoBehaviour
+public class SphereTarget : MonoBehaviour, IShootable
 {
     [Header("Box Health")]
     public float maxHealth = 3f;
@@ -22,16 +22,16 @@ public class ShootableBox : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void Damage(float damageAmount)
+    public bool Hit(float damage)
     {
-        currentHealth -= damageAmount;
+        currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            if (ScoreManager.Instance != null)
-            ScoreManager.Instance.AddScore((float)0.5);
+            ScoreManager.Instance?.AddScore(1f); // TODO: make score dynamic
             StartCoroutine(Respawn());
         }
 
+        return true;
     }
 
     private IEnumerator Respawn()
