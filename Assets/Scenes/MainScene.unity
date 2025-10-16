@@ -260,6 +260,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 415388808}
     - target: {fileID: 3471886111080552750, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      propertyPath: fireSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 458b5449087324bcbb7afd64294d959f, type: 3}
+    - target: {fileID: 3471886111080552750, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: hitEffect
       value: 
       objectReference: {fileID: 401812992}
@@ -267,6 +271,18 @@ PrefabInstance:
       propertyPath: muzzleTip
       value: 
       objectReference: {fileID: 415388808}
+    - target: {fileID: 7550927678959660265, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      propertyPath: m_Volume
+      value: 0.422
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550927678959660265, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550927678959660265, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

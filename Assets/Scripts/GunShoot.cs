@@ -10,6 +10,10 @@ public class GunShoot : MonoBehaviour
     public GameObject hitEffect;
     // private AudioSource gunAudio;
     public LineRenderer laserLine;
+    public AudioSource gunAudio;
+    public AudioClip fireSound;
+    public AudioSource robotAudioWhenShot;
+    public AudioClip tinSound;
 
     [Header("Settings")]
     public float range = 100f;
@@ -29,9 +33,26 @@ public class GunShoot : MonoBehaviour
     {
         laserLine = GetComponent<LineRenderer>();
 
-        // gunAudio = GetComponent<AudioSource>();
+        gunAudio = GetComponent<AudioSource>();
+
+        robotAudioWhenShot = GetComponent<AudioSource>();
 
         fpsCam = GetComponentInParent<Camera>();
+        // ensure no auto-play at startup
+    if (gunAudio != null)
+    {
+        gunAudio.playOnAwake = false;
+        gunAudio.loop = false;
+        gunAudio.clip = null; // keep the clip only in fireSound
+    }
+    if (robotAudioWhenShot != null)
+    {
+        robotAudioWhenShot.playOnAwake = false;
+        robotAudioWhenShot.loop = false;
+        robotAudioWhenShot.clip = null; // keep the clip only in fireSound
+    }
+
+        
     }
 
 
@@ -48,13 +69,29 @@ public class GunShoot : MonoBehaviour
 
             RaycastHit hit;
 
+<<<<<<< Updated upstream
             laserLine.SetPosition (0, gunEnd.position);
 
             if (Physics.Raycast (rayOrigin, fpsCam.transform.forward, out hit, range))
+=======
+
+            
+            if (Physics.Raycast(rayOrigin, fpsCam.transform.forward, out RaycastHit hit, range))
+>>>>>>> Stashed changes
             {
                 laserLine.SetPosition (1, hit.point);
 
+<<<<<<< Updated upstream
                 ShootableBox health = hit.collider.GetComponent<ShootableBox>();
+=======
+                // invoke shootable interface
+                IShootable shootable = hit.collider.GetComponentInParent<IShootable>();
+                if(shootable is not null)
+                {
+                    var isHit = shootable.Hit(damage);
+                    robotAudioWhenShot.PlayOneShot(tinSound);
+
+>>>>>>> Stashed changes
 
                 if (health != null)
                 {
@@ -65,6 +102,7 @@ public class GunShoot : MonoBehaviour
                 if (hit.rigidbody != null);
                 {
                     hit.rigidbody.AddForce(-hit.normal * hitForce);
+
                 }
             }
             else
@@ -85,13 +123,22 @@ public class GunShoot : MonoBehaviour
 
     private IEnumerator ShotEffect()
     {
+<<<<<<< Updated upstream
     // gunAudio.Play ();
+=======
+        gunAudio.PlayOneShot(fireSound);
+>>>>>>> Stashed changes
 
     laserLine.enabled = true;
 
     yield return shotDuration;
 
+<<<<<<< Updated upstream
     laserLine.enabled = false;
+=======
+        laserLine.enabled = false;
+        
+>>>>>>> Stashed changes
     }
 
     // void Shoot()
