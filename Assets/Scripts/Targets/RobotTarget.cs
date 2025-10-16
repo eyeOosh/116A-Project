@@ -25,6 +25,7 @@ public class RobotTarget : MonoBehaviour, IShootable
 
     private NavMeshAgent agent;
     private Transform robot;
+    private Animation animator;
 
     private bool dead = false;
 
@@ -33,6 +34,7 @@ public class RobotTarget : MonoBehaviour, IShootable
     {
         // find referenced components
         robot = transform.Find("Robot");
+        animator = transform.Find("Robot").GetComponent<Animation>();
         agent = GetComponent<NavMeshAgent>();
 
         // create waypoints
@@ -71,6 +73,8 @@ public class RobotTarget : MonoBehaviour, IShootable
     {
         ScoreManager.Instance?.AddScore(points);
         agent.isStopped = true;
+        animator.Stop();
+
 
         // move down
         var startPos = robot.localPosition;
@@ -102,6 +106,7 @@ public class RobotTarget : MonoBehaviour, IShootable
             yield return null;
         }
 
+        animator.Play();
         agent.isStopped = false;
         dead = false;
     }
