@@ -13,6 +13,14 @@ public class MainMenu : MonoBehaviour
         Cursor.visible = false;
     }
 
+    public void PlayRobot()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit the game.");
