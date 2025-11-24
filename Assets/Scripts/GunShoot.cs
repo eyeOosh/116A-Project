@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem; // new Input System
+using UnityEngine.InputSystem; 
 using System.Collections;
 
 public class GunShoot : MonoBehaviour
@@ -8,12 +8,18 @@ public class GunShoot : MonoBehaviour
     public Camera fpsCam;
     public ParticleSystem muzzleFlash;
     public GameObject hitEffect;
-    // private AudioSource gunAudio;
     public LineRenderer laserLine;
     public AudioSource gunAudio;
     public AudioClip fireSound;
     public AudioSource robotAudioWhenShot;
     public AudioClip tinSound;
+
+    private AudioSource gunAudio;
+    public AudioClip fireSound;  
+
+    public AudioClip impactSound;
+    public AudioSource impactAudio;
+
 
     [Header("Settings")]
     public float range = 100f;
@@ -34,6 +40,7 @@ public class GunShoot : MonoBehaviour
         laserLine = GetComponent<LineRenderer>();
 
         gunAudio = GetComponent<AudioSource>();
+<<<<<<< Updated upstream
 
         robotAudioWhenShot = GetComponent<AudioSource>();
 
@@ -53,6 +60,26 @@ public class GunShoot : MonoBehaviour
     }
 
         
+=======
+
+        fpsCam = GetComponentInParent<Camera>();
+
+        // ensure no auto-play at startup
+        if (gunAudio != null)
+        {
+            gunAudio.playOnAwake = false;
+            gunAudio.loop = false;
+            gunAudio.clip = null; // keep the clip only in fireSound
+        }
+
+        if (laserLine != null) laserLine.enabled = false;
+
+        if (impactAudio == null)
+        impactAudio = gameObject.AddComponent<AudioSource>();
+        impactAudio.playOnAwake = false;    
+        impactAudio.loop = false;
+        impactAudio.spatialBlend = 0f;
+>>>>>>> Stashed changes
     }
 
 
@@ -91,9 +118,23 @@ public class GunShoot : MonoBehaviour
                     var isHit = shootable.Hit(damage);
                     robotAudioWhenShot.PlayOneShot(tinSound);
 
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 
                 if (health != null)
+=======
+                    if (shootable is RobotTarget && impactAudio != null && impactSound != null)
+                    {
+                        impactAudio.PlayOneShot(impactSound);
+                    }
+
+                    if (!isHit)
+                    {
+                        ScoreManager.Instance?.AddScore(-1f);
+                    }
+                }
+                else
+>>>>>>> Stashed changes
                 {
                     health.Damage(damage); //convert to float
 
@@ -124,9 +165,22 @@ public class GunShoot : MonoBehaviour
     private IEnumerator ShotEffect()
     {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     // gunAudio.Play ();
 =======
         gunAudio.PlayOneShot(fireSound);
+>>>>>>> Stashed changes
+=======
+         // play the assigned clip once
+        if (gunAudio != null && fireSound != null)
+        {
+            gunAudio.PlayOneShot(fireSound);
+        }
+        else
+        {
+            Debug.LogWarning($"Gun audio missing: gunAudio={(gunAudio!=null)} fireSound={(fireSound!=null)}");
+        }
+        
 >>>>>>> Stashed changes
 
     laserLine.enabled = true;
@@ -140,6 +194,8 @@ public class GunShoot : MonoBehaviour
         
 >>>>>>> Stashed changes
     }
+
+    
 
     // void Shoot()
     // {
