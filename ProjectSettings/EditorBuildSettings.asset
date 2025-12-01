@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RobotRange.unity
     guid: 7bddffa44d9f42d42b30c7b07ef4036b
+  - enabled: 1
+    path: Assets/Scenes/TransitionScreen.unity
+    guid: 9a7844f66b15c415ea354e5ff2c9364d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
